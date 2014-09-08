@@ -13,7 +13,7 @@ setup(
   name = 'SQLtoDICT',
   packages = ['SQLtoDICT'],
   version = '0.1',
-  description = 'Raw sql results returns as dictionary',
+  description = 'Raw sql results returns as dictionary.',
   author = u'Barbaros YILDIRIM',
   author_email = 'barbarosaliyildirim@gmail.com',
   url = 'https://github.com/RedXBeard/python-sqldict',
