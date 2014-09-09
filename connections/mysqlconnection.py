@@ -10,7 +10,7 @@ class MySqlConnectionError(Exception): pass
 
 class MYSQLConnection(BaseConnection):
 
-    def connection(self):
+    def make_connection(self):
         """ Basicly to build mysql connection by given attributes """
         try:
             self.connection=mysql.connector.connect(database=self.dbname,

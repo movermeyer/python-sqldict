@@ -25,15 +25,15 @@ class BaseConnection(object):
         """
         return cls(sql=sql, cursor=cursor)
 
-    def connection(self):
+    def make_connection(self):
         pass
 
     def execute_sql(self):
         """ To execute raw sql """
         try:
-            if not self.cursor():
-                self.connection()
-            self.cursor=self.connection.cursor()
+            if not self.cursor:
+                self.make_connection()
+                self.cursor=self.connection.cursor()
             self.cursor.execute(self.sql)
             self.result=self.cursor.fetchall()
         except Exception, e:

@@ -10,7 +10,7 @@ class PostgressConnectionError(Exception): pass
 
 class PostgressConnection(BaseConnection):
 
-    def connection(self):
+    def make_connection(self):
         """ Basicly to build postgres connection by given attributes """
         try:
             self.connection=psycopg2.connect(database=self.dbname,
