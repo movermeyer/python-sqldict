@@ -24,7 +24,10 @@ To play with postgress database, required connection is as following;
 
 There are two ways to make class one is giving all required attributes for making the connection;
 ```python
-: pc = PostgressConnection(sql='select id, code from product limit 10', 
+: pc = PostgressConnection(sql="""select id, code 
+                                  from product 
+                                  limit 10
+                               """, 
                            database='template1' 
                            user='dbuser' 
                            host='localhost' 
@@ -35,9 +38,17 @@ There are two ways to make class one is giving all required attributes for makin
 Other one is; cursor will be already generated and it could be enough to making the class;
 ```python
 : import psycopg2
-: conn = psycopg2.connect(dbname='template1' user='dbuser' host='localhost' password='dbpass', port='5433')
+: conn = psycopg2.connect(dbname='template1',
+                          user='dbuser',
+                          host='localhost',
+                          password='dbpass',
+                          port='5433')
 : cursor = conn.cursor()
-: pc = PostgressConnection(sql='select id, code from product limit 10', cursor=cursor)
+: pc = PostgressConnection(sql="""select id, code 
+                                  from product 
+                                  limit 10
+                               """, 
+                           cursor=cursor)
 ```
 
 Execution is simple as it is;
