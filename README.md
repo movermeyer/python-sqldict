@@ -13,6 +13,8 @@ Installation
 class will be put into pypi soon, after that;
 ```bash
 $ pip install SQLtoDICT
+$ pip install psycopg2
+$ pip install mysql-connector-repackaged
 ```
 
 Usage
@@ -24,14 +26,14 @@ To play with postgress database, required connection is as following;
 
 There are two ways to make class one is giving all required attributes for making the connection;
 ```python
-: pc = PostgressConnection(sql="""select id, code 
-                                  from product 
+: pc = PostgressConnection(sql="""select id, code
+                                  from product
                                   limit 10
-                               """, 
-                           database='template1' 
-                           user='dbuser' 
-                           host='localhost' 
-                           password='dbpass', 
+                               """,
+                           database='template1'
+                           user='dbuser'
+                           host='localhost'
+                           password='dbpass',
                            port='5433')
 ```
 
@@ -44,10 +46,10 @@ Other one is; cursor will be already generated and it could be enough to making 
                           password='dbpass',
                           port='5433')
 : cursor = conn.cursor()
-: pc = PostgressConnection(sql="""select id, code 
-                                  from product 
+: pc = PostgressConnection(sql="""select id, code
+                                  from product
                                   limit 10
-                               """, 
+                               """,
                            cursor=cursor)
 ```
 
@@ -85,7 +87,3 @@ Dictionary conversion after executing the sql result will be following understan
  {'code': '4YAM19187LK', 'id': 55054},
  {'code': '4YAM19698LK', 'id': 61027}]
 ```
-
-
-
-

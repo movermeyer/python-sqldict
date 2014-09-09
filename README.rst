@@ -2,7 +2,7 @@ python-sqldict
 ==============
 .. image:: https://travis-ci.org/RedXBeard/python-sqldict.svg?branch=master
     :target: https://travis-ci.org/RedXBeard/python-sqldict
-    
+
 Raw SQL results returns as dictionary.
 
 Developers who has lots of works on databases, sometimes, especially written raw sql result or in other words selects become to much to handle, so to play with the result of that sqls become pain; columns has to be remembered which index of result list refers which column etc. (ORM usage is fix this issue but has consequences so even if you are using ORM sometimes as said writing raw sqls preferred)
@@ -16,7 +16,8 @@ class will be put into pypi soon, after that;
 .. code-block:: bash
 
   $ pip install SQLtoDICT
-
+  $ pip install psycopg2
+  $ pip install mysql-connector-repackaged
 
 Usage
 -----
@@ -31,14 +32,14 @@ There are two ways to make class one is giving all required attributes for makin
 
 .. code-block:: python
 
-  : pc = PostgressConnection(sql="""select id, code 
-                                    from product 
+  : pc = PostgressConnection(sql="""select id, code
+                                    from product
                                     limit 10
-                                 """, 
-                             database='template1' 
-                             user='dbuser' 
-                           host='localhost' 
-                           password='dbpass', 
+                                 """,
+                             database='template1'
+                             user='dbuser'
+                           host='localhost'
+                           password='dbpass',
                            port='5433')
 
 
@@ -53,10 +54,10 @@ Other one is; cursor will be already generated and it could be enough to making 
                             password='dbpass',
                             port='5433')
   : cursor = conn.cursor()
-  : pc = PostgressConnection(sql="""select id, code 
-                                    from product 
+  : pc = PostgressConnection(sql="""select id, code
+                                    from product
                                     limit 10
-                                 """, 
+                                 """,
                              cursor=cursor)
 
 
@@ -98,8 +99,3 @@ Dictionary conversion after executing the sql result will be following understan
    {'code': 'Y14LGD021110', 'id': 61870},
    {'code': '4YAM19187LK', 'id': 55054},
    {'code': '4YAM19698LK', 'id': 61027}]
-
-
-
-
-
