@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Python-sqldict by RedXBeard</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Python-sqldict</h1>
+        <h2>raw sql results returns as dictionary</h2>
+        <a href="https://github.com/RedXBeard/python-sqldict" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a name="python-sqldict" class="anchor" href="#python-sqldict"><span class="octicon octicon-link"></span></a>python-sqldict</h1>
+
+<p><a href="https://travis-ci.org/RedXBeard/python-sqldict"><img src="https://travis-ci.org/RedXBeard/python-sqldict.svg?branch=master" alt="Build Status"></a></p>
+
+<p>Raw SQL results returns as dictionary.</p>
+
+<p>Developers who has lots of works on databases, sometimes, especially written raw sql result or in other words selects become to much to handle, so to play with the result of that sqls become pain; columns has to be remembered which index of result list refers which column etc. (ORM usage is fix this issue but has consequences so even if you are using ORM sometimes as said writing raw sqls preferred)</p>
+
+<p>To have a key value pair like dictionaries for sql results will be much more useful, and the pain will become less.</p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Using pip library will be installed as following</p>
+
+<div class="highlight highlight-bash"><pre><span class="nv">$ </span>pip install sqltodict
+<span class="nv">$ </span>pip install psycopg2
+<span class="nv">$ </span>pip install mysql-connector-repackaged
+</pre></div>
+
+<h2>
+<a name="usage-for-postgresql" class="anchor" href="#usage-for-postgresql"><span class="octicon octicon-link"></span></a>Usage for PostgreSQL</h2>
+
+<p>To play with postgress database, required connection is as following;</p>
+
+<div class="highlight highlight-python"><pre><span class="p">:</span> <span class="kn">from</span> <span class="nn">sqltodict.connections.postgresqlconnection</span> <span class="kn">import</span> <span class="n">PostgreSQLConnection</span>
+</pre></div>
+
+<p>There are two ways to make class one is giving all required attributes for making the connection;</p>
+
+<div class="highlight highlight-python"><pre><span class="p">:</span> <span class="n">pc</span> <span class="o">=</span> <span class="n">PostgreSQLConnection</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="s">"""select id, code</span>
+<span class="s">                                  from product</span>
+<span class="s">                                  limit 10</span>
+<span class="s">                               """</span><span class="p">,</span>
+                            <span class="n">database</span><span class="o">=</span><span class="s">'template1'</span>
+                            <span class="n">user</span><span class="o">=</span><span class="s">'dbuser'</span>
+                            <span class="n">host</span><span class="o">=</span><span class="s">'localhost'</span>
+                            <span class="n">password</span><span class="o">=</span><span class="s">'dbpass'</span><span class="p">,</span>
+                            <span class="n">port</span><span class="o">=</span><span class="mi">5433</span><span class="p">)</span>
+</pre></div>
+
+<p>Other one is; cursor will be already generated and it could be enough to making the class;</p>
+
+<div class="highlight highlight-python"><pre><span class="p">:</span> <span class="kn">import</span> <span class="nn">psycopg2</span>
+<span class="p">:</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">dbname</span><span class="o">=</span><span class="s">'template1'</span><span class="p">,</span>
+                          <span class="n">user</span><span class="o">=</span><span class="s">'dbuser'</span><span class="p">,</span>
+                          <span class="n">host</span><span class="o">=</span><span class="s">'localhost'</span><span class="p">,</span>
+                          <span class="n">password</span><span class="o">=</span><span class="s">'dbpass'</span><span class="p">,</span>
+                          <span class="n">port</span><span class="o">=</span><span class="mi">5433</span><span class="p">)</span>
+<span class="p">:</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="p">:</span> <span class="n">pc</span> <span class="o">=</span> <span class="n">PostgreSQLConnection</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="s">"""select id, code</span>
+<span class="s">                                   from product</span>
+<span class="s">                                   limit 10</span>
+<span class="s">                                """</span><span class="p">,</span>
+                            <span class="n">cursor</span><span class="o">=</span><span class="n">cursor</span><span class="p">)</span>
+</pre></div>
+
+<p>Execution is simple as it is;</p>
+
+<div class="highlight highlight-python"><pre><span class="p">:</span> <span class="n">pc</span><span class="o">.</span><span class="n">execute_sql</span><span class="p">()</span>
+</pre></div>
+
+<p>The result will as following, as default sql select result which is sometimes so hard to continue working.</p>
+
+<div class="highlight highlight-python"><pre><span class="p">:</span> <span class="n">pc</span><span class="o">.</span><span class="n">result</span>
+<span class="p">[(</span><span class="mi">62392</span><span class="p">,</span> <span class="s">'4YAL61165JW'</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">41308</span><span class="p">,</span> <span class="s">'Y14FCD010394'</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">61397</span><span class="p">,</span> <span class="s">'4YAL16490IK'</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">4396</span><span class="p">,</span> <span class="s">'W2WCR0040'</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">61696</span><span class="p">,</span> <span class="s">'4YAK71063AA'</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">57895</span><span class="p">,</span> <span class="s">'4YAK38077PW'</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">64853</span><span class="p">,</span> <span class="s">'V0400710218'</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">61870</span><span class="p">,</span> <span class="s">'Y14LGD021110'</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">55054</span><span class="p">,</span> <span class="s">'4YAM19187LK'</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">61027</span><span class="p">,</span> <span class="s">'4YAM19698LK'</span><span class="p">)]</span>
+</pre></div>
+
+<p>For dictionary conversion the sql result will be following, as understandable list.</p>
+
+<div class="highlight highlight-python"><pre><span class="p">:</span> <span class="n">pc</span><span class="o">.</span><span class="n">execute_return_as_dict</span><span class="p">()</span>
+<span class="p">[{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">'4YAL61165JW'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">62392</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">'Y14FCD010394'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">41308</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">'4YAL16490IK'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">61397</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">'W2WCR0040'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">4396</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">'4YAK71063AA'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">61696</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">'4YAK38077PW'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">57895</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">'V0400710218'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">64853</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">'Y14LGD021110'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">61870</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">'4YAM19187LK'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">55054</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">'4YAM19698LK'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">61027</span><span class="p">}]</span>
+</pre></div>
+
+<h2>
+<a name="usage-for-mysql" class="anchor" href="#usage-for-mysql"><span class="octicon octicon-link"></span></a>Usage for MYSQL</h2>
+
+<p>Playing with an mysql database there are slightly differences; starts with import;</p>
+
+<div class="highlight highlight-python"><pre><span class="p">:</span> <span class="kn">from</span> <span class="nn">sqltodict.connections.mysqlconnection</span> <span class="kn">import</span> <span class="n">MYSQLConnection</span>
+</pre></div>
+
+<p>There are two ways again to make the class usable;</p>
+
+<div class="highlight highlight-python"><pre><span class="p">:</span> <span class="n">mc</span> <span class="o">=</span> <span class="n">MYSQLConnection</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="s">"""select id, code</span>
+<span class="s">                              from product</span>
+<span class="s">                              limit 10</span>
+<span class="s">                           """</span><span class="p">,</span>
+                       <span class="n">database</span><span class="o">=</span><span class="s">'template1'</span>
+                       <span class="n">user</span><span class="o">=</span><span class="s">'dbuser'</span>
+                       <span class="n">host</span><span class="o">=</span><span class="s">'localhost'</span>
+                       <span class="n">password</span><span class="o">=</span><span class="s">'dbpass'</span><span class="p">,</span>
+                       <span class="n">port</span><span class="o">=</span><span class="mi">3306</span><span class="p">)</span>
+</pre></div>
+
+<p>... or in other way is as mentioned before, as following;</p>
+
+<div class="highlight highlight-python"><pre><span class="p">:</span> <span class="kn">import</span> <span class="nn">mysql.connector</span>
+<span class="p">:</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s">'root'</span><span class="p">,</span>
+                                 <span class="n">password</span><span class="o">=</span><span class="s">''</span><span class="p">,</span>
+                                 <span class="n">host</span><span class="o">=</span><span class="s">'localhost'</span><span class="p">,</span>
+                                 <span class="n">database</span><span class="o">=</span><span class="s">'template1'</span><span class="p">,</span>
+                                 <span class="n">port</span><span class="o">=</span><span class="mi">3306</span><span class="p">)</span>
+<span class="p">:</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="p">:</span> <span class="n">mc</span> <span class="o">=</span> <span class="n">MYSQLConnection</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="s">"""select id, code</span>
+<span class="s">                              from product</span>
+<span class="s">                              limit 10</span>
+<span class="s">                           """</span><span class="p">,</span>
+                       <span class="n">cursor</span><span class="o">=</span><span class="n">cursor</span><span class="p">)</span>
+</pre></div>
+
+<p>Execution is simple if result is wanted as default one;</p>
+
+<div class="highlight highlight-python"><pre><span class="p">:</span> <span class="n">mc</span><span class="o">.</span><span class="n">execute_sql</span><span class="p">()</span>
+<span class="p">:</span> <span class="n">mc</span><span class="o">.</span><span class="n">result</span>
+<span class="p">[(</span><span class="mi">62392</span><span class="p">,</span> <span class="s">'4YAL61165JW'</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">41308</span><span class="p">,</span> <span class="s">'Y14FCD010394'</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">61397</span><span class="p">,</span> <span class="s">'4YAL16490IK'</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">4396</span><span class="p">,</span> <span class="s">'W2WCR0040'</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">61696</span><span class="p">,</span> <span class="s">'4YAK71063AA'</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">57895</span><span class="p">,</span> <span class="s">'4YAK38077PW'</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">64853</span><span class="p">,</span> <span class="s">'V0400710218'</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">61870</span><span class="p">,</span> <span class="s">'Y14LGD021110'</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">55054</span><span class="p">,</span> <span class="s">'4YAM19187LK'</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">61027</span><span class="p">,</span> <span class="s">'4YAM19698LK'</span><span class="p">)]</span>
+</pre></div>
+
+<p>If dictionary type of result is requested, directly;</p>
+
+<div class="highlight highlight-python"><pre><span class="p">:</span> <span class="n">mc</span><span class="o">.</span><span class="n">execute_return_as_dict</span><span class="p">()</span>
+<span class="p">[{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">u'W2WCR0040'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">4396</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">u'Y14FCD010394'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">41308</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">u'4YAM19187LK'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">55054</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">u'4YAK38077PW'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">57895</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">u'4YAM19698LK'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">61027</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">u'4YAL16490IK'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">61397</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">u'4YAK71063AA'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">61696</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">u'Y14LGD021110'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">61870</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">u'4YAL61165JW'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">62392</span><span class="p">},</span>
+ <span class="p">{</span><span class="s">'code'</span><span class="p">:</span> <span class="s">u'V0400710218'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">64853</span><span class="p">}]</span>
+</pre></div>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/RedXBeard/python-sqldict/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/RedXBeard/python-sqldict/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/RedXBeard/python-sqldict"></a> is maintained by <a href="https://github.com/RedXBeard">RedXBeard</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
