@@ -6,14 +6,14 @@ try:
 except ImportError:
     from distutils.core import setup
 
-from connections import __version__
+from sqltodict import __version__
 
 with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
     long_description = readme.read()
 
 setup(
-  name = 'SQLtoDICT',
-  packages = ['SQLtoDICT'],
+  name = 'sqltodict',
+  packages = ['sqltodict'],
   version = __version__,
   description = 'Raw sql results returns as dictionary.',
   author = u'Barbaros YILDIRIM',

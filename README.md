@@ -12,7 +12,7 @@ Installation
 ------------
 class will be put into pypi soon, after that;
 ```bash
-$ pip install SQLtoDICT
+$ pip install sqltodict
 $ pip install psycopg2
 $ pip install mysql-connector-repackaged
 ```
@@ -21,7 +21,7 @@ Usage for PostgreSQL
 --------------------
 To play with postgress database, required connection is as following;
 ```python
-: from SQLtoDICT.connections.postgresqlconnection import PostgreSQLConnection
+: from sqltodict.connections.postgresqlconnection import PostgreSQLConnection
 ```
 
 There are two ways to make class one is giving all required attributes for making the connection;
@@ -92,7 +92,7 @@ Usage for MYSQL
 ---------------
 Playing with an mysql database there are slightly differences; starts with import;
 ```python
-: from SQLtoDICT.connections.mysqlconnection import MYSQLConnection
+: from sqltodict.connections.mysqlconnection import MYSQLConnection
 ```
 
 There are two ways again to make the class usable;
