@@ -1,5 +1,6 @@
 python-sqldict
 ==============
+
 .. image:: https://travis-ci.org/RedXBeard/python-sqldict.svg?branch=master
     :target: https://travis-ci.org/RedXBeard/python-sqldict
 
@@ -64,6 +65,7 @@ Other one is; cursor will be already generated and it could be enough to making 
 Execution is simple as it is;
 
 .. code-block:: python
+
   : pc.execute_sql()
 
 
@@ -107,7 +109,7 @@ Playing with an mysql database there are slightly differences; starts with impor
 
 .. code-block:: python
 
-        : from sqltodict.connections.mysqlconnection import MYSQLConnection
+    : from sqltodict.connections.mysqlconnection import MYSQLConnection
 
 
 There are two ways again to make the class usable;
