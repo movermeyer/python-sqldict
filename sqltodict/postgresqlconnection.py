@@ -2,7 +2,7 @@
 
 import psycopg2
 from .baseconnection import BaseConnection
-from .exceptions import PostgressConnectionError, NoneCursorError
+from .exceptions import PostgreSQLConnectionError, NoneCursorError
 
 class PostgreSQLConnection(BaseConnection):
 
