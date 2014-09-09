@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
-#!/usr/bin/env python
 
-## conn = mysql.connector.connect(user='dbuser', password='dbpass', host='localhost', database='template1')
-
-import mysql
+import mysql.connector
 from .baseconnection import BaseConnection
-
-class MySqlConnectionError(Exception): pass
+from .exceptions import MySqlConnectionError, NoneCursorError
 
 class MYSQLConnection(BaseConnection):
 
@@ -20,3 +16,11 @@ class MYSQLConnection(BaseConnection):
                                                     port=self.port)
         except Exception, e:
             raise MySqlConnectionError, e
+
+    def get_columns(self):
+        """ MYSQL description holding style as 
+            list so as the action based on that """
+        try:
+            return map(lambda x: x[0], self.cursor.description)
+        except AttributeError,e:
+            raise NoneCursorError, e

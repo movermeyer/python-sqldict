@@ -1,14 +1,10 @@
 # -*- coding: utf-8 -*-
-#!/usr/bin/env python
-
-## conn = psycopg2.connect("dbname='template1' user='dbuser' host='localhost' password='dbpass'")
 
 import psycopg2
 from .baseconnection import BaseConnection
+from .exceptions import PostgressConnectionError, NoneCursorError
 
-class PostgressConnectionError(Exception): pass
-
-class PostgressConnection(BaseConnection):
+class PostgreSQLConnection(BaseConnection):
 
     def make_connection(self):
         """ Basicly to build postgres connection by given attributes """
@@ -19,4 +15,12 @@ class PostgressConnection(BaseConnection):
                                              host=self.host,
                                              port=self.port)
         except Exception, e:
-            raise PostgressConnectionError, e
+            raise PostgreSQLConnectionError, e
+
+    def get_columns(self):
+        """ PostgreSQL description holding style as
+            list so as the action based on that """
+        try:
+            return map(lambda x: x.name, self.cursor.description)
+        except AttributeError,e:
+            raise NoneCursorError, e

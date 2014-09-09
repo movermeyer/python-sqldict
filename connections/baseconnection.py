@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-#!/usr/bin/env python
 
-class ExecutionError(Exception): pass
-class GenerationDictError(Exception): pass
+from .exceptions import ExecutionError, GenerationDictError
 
 class BaseConnection(object):
     def __init__(self, sql, dbname=None, user=None, host=None,
@@ -26,6 +24,13 @@ class BaseConnection(object):
         return cls(sql=sql, cursor=cursor)
 
     def make_connection(self):
+        """ Each server connection is different from eachother """
+        pass
+
+    def get_columns(self):
+        """ Each server has differences for how
+            to hold description of an cursor.
+        """
         pass
 
     def execute_sql(self):
@@ -39,12 +44,12 @@ class BaseConnection(object):
         except Exception, e:
             raise ExecutionError, e
 
-    def sql_result_as_dict(self):
+    def execute_return_as_dict(self):
         """ Generation dictionary from the result """
         self.execute_sql()
         data=self.result
         try:
-            columns = map(lambda x: x.name, self.cursor.description)
+            columns = self.get_columns()
             data=[dict(zip(columns, row)) for row in self.result]
         except Exception, e:
             raise GenerationDictError, e
