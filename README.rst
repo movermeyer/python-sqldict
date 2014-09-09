@@ -12,7 +12,7 @@ To have a key value pair like dictionaries for sql results will be much more use
 
 Installation
 ------------
-class will be put into pypi soon, after that;
+Using pip library will be installed as following
 
 .. code-block:: bash
 
