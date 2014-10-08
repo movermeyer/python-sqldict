@@ -2,8 +2,21 @@ python-sqldict
 ==============
 
 .. image:: https://travis-ci.org/RedXBeard/python-sqldict.svg?branch=master
-    :target: https://travis-ci.org/RedXBeard/python-sqldict
-
+    :target: https://travis-ci.org/RedXBeard/python-sqldict 
+    :alt: Build
+.. image:: https://pypip.in/download/sqltodict/badge.svg
+    :target: https://pypi.python.org/pypi//sqltodict/
+    :alt: Downloads
+.. image:: https://pypip.in/version/sqltodict/badge.svg
+    :target: https://pypi.python.org/pypi/sqltodict/
+    :alt: Latest Version
+.. image:: https://pypip.in/py_versions/sqltodict/badge.svg
+    :target: https://pypi.python.org/pypi/sqltodict/
+    :alt: Supported Python versions
+.. image:: https://pypip.in/license/sqltodict/badge.svg
+    :target: https://pypi.python.org/pypi/sqltodict/
+    :alt: License
+    
 Raw SQL results returns as dictionary.
 
 Developers who has lots of works on databases, sometimes, especially written raw sql result or in other words selects become to much to handle, so to play with the result of that sqls become pain; columns has to be remembered which index of result list refers which column etc. (ORM usage is fix this issue but has consequences so even if you are using ORM sometimes as said writing raw sqls preferred)
