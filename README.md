@@ -1,10 +1,10 @@
 python-sqldict
 ==============
 [![Build Status](https://travis-ci.org/RedXBeard/RomanNumbers.svg?branch=master)](https://travis-ci.org/RedXBeard/python-sqldict) 
-[![Downloads](https://pypip.in/download/sqltodict/badge.svg)](https://pypi.python.org/pypi/sqltodict/)
-[![Latest Version](https://pypip.in/version/sqltodict/badge.svg)](https://pypi.python.org/pypi/sqltodict/)
-[![Supported Python versions](https://pypip.in/py_versions/sqltodict/badge.svg)](https://pypi.python.org/pypi/sqltodict/)
-[![License](https://pypip.in/license/sqltodict/badge.svg)](https://pypi.python.org/pypi/sqltodict/)
+[![Downloads](https://img.shields.io/pypi/dm/sqltodict.svg)](https://pypi.python.org/pypi/sqltodict/)
+[![Latest Version](https://img.shields.io/pypi/v/sqltodict.svg)](https://pypi.python.org/pypi/sqltodict/)
+[![Supported Python versions](https://img.shields.io/pypi/pyversions/sqltodict.svg)](https://pypi.python.org/pypi/sqltodict/)
+[![License](https://img.shields.io/pypi/l/sqltodict.svg)](https://pypi.python.org/pypi/sqltodict/)
 
 
 Raw SQL results returns as dictionary.
